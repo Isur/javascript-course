@@ -1,11 +1,21 @@
 import  './index.css';
 
-import numeral from 'numeral';
+import { getUsers } from './api/userApi';
 
 /* eslint-disable no-console */
+getUsers().then(result => {
+    let usersBody = "";
 
-const courseValue = numeral(666).format('$0.00');
+    result.forEach(user => {
+        usersBody += `<tr>
+                <td><a href="#" data-id="${user.id}" class="deleteUser">Delete</a></td>
+                <td>${user.id}</td>
+                <td>${user.firstName}</td>
+                <td>${user.lastName}</td>
+                <td>${user.email}</td>
+            </tr>`
+    });
 
-debugger; // esldadint-disable-line no-debugger
+    global.document.getElementById('users').innerHTML = usersBody;
 
-console.log(`I would pay ${courseValue} for this mantle young devil of hell haHAA.`);
+});
